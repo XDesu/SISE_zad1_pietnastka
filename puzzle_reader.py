@@ -1,8 +1,11 @@
 
+from classes.puzzle import Puzzle
+
 class PuzzleReader():
 
     def __init__(self, file_name) -> None:
-        f = open(file_name, 'r')
+        self.file_name = file_name
+        f = open(self.file_name, 'r')
 
         # get width and height of puzzle from file
         self.width, self.height = f.readline().split()
@@ -32,3 +35,6 @@ class PuzzleReader():
         
     def getArray(self):
         return self.tab
+
+    def getPuzzle(self):
+        return Puzzle(self.tab, self.file_name)
