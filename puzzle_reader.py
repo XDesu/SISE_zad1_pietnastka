@@ -8,8 +8,8 @@ class PuzzleReader():
         f = open(self.file_name, 'r')
 
         # get width and height of puzzle from file
-        self.width, self.height = f.readline().split()
-        self.width, self.height = int(self.width), int(self.height)
+        self.height, self.width = f.readline().split()
+        self.height, self.width = int(self.height), int(self.width)
         
         self.tab = []
 
@@ -37,4 +37,4 @@ class PuzzleReader():
         return self.tab
 
     def getPuzzle(self):
-        return Puzzle(self.tab, self.file_name)
+        return Puzzle(self.width, self.height, self.tab, self.file_name)
