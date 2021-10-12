@@ -1,9 +1,7 @@
-from os import read
-from classes.puzzle import Puzzle
 from puzzle_reader import PuzzleReader
 
 def main():
-    reader = PuzzleReader('./puzzles/4x4_02_00002.txt')
+    reader = PuzzleReader('./puzzles/4x4_07_00196.txt')
     puzzle = reader.getPuzzle()
     puzzle.print()
     print()
