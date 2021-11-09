@@ -1,26 +1,35 @@
 import sys
+from classes.bfs_strategy import BFS
 
 from puzzle_reader import PuzzleReader
 
 
 def main(strategy, param, puzzle_file, sol_file, stats_file):
-    reader = PuzzleReader('./puzzles/test3x4.txt')
+    reader = PuzzleReader('./puzzles/4x4_01_00002.txt')
     puzzle = reader.getPuzzle()
-    puzzle.print()
-    print()
-    puzzle.move('R')
-    puzzle.print()
+
+    print(puzzle)
+    puzzle.move("R")
+    print(puzzle)
+    puzzle.move("R")
+    print(puzzle)
+
+    # print(BFS(puzzle, "RULD"))
+
+    # print(puzzle.check_possible_moves())
 
 
-if __name__ == "__main__":
-    args = sys.argv
-    strategy = args[1]
-    param = args[2]
-    puzzle_file = args[3]
-    sol_file = args[4]
-    stats_file = args[5]
+main(1, 1, 1, 1, 1)
 
-    if strategy not in ['bfs', 'dfs', 'astr']:
-        raise Exception(f'Nieznana strategia: "{strategy}"')
+# if __name__ == "__main__":
+#     args = sys.argv
+#     strategy = args[1]
+#     param = args[2]
+#     puzzle_file = args[3]
+#     sol_file = args[4]
+#     stats_file = args[5]
 
-    main(strategy, param, puzzle_file, sol_file, stats_file)
+#     if strategy not in ['bfs', 'dfs', 'astr']:
+#         raise Exception(f'Nieznana strategia: "{strategy}"')
+
+#     main(strategy, param, puzzle_file, sol_file, stats_file)
