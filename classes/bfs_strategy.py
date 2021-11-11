@@ -10,7 +10,7 @@ class BFS():
         self.puzzle: Puzzle = puzzle
         self.method: str = method
         self.solved_puzzle: Puzzle = None
-        self.time_taken: int = 0
+        self.time_taken: float = 0.0
         self.processed_states: int = 0
         self.visited_states: int = 0
 
@@ -39,7 +39,7 @@ class BFS():
         f.write(f"{str(length)}\n")
         f.write(str(self.visited_states) + "\n")
         f.write(str(self.processed_states) + "\n")
-        f.write("0\n")
+        f.write("0\n")  # głębokość rekursji
         f.write(str(self.time_taken))
 
         f.close()

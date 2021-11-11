@@ -14,7 +14,7 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     if not os.path.exists("additional"):
         os.makedirs("additional")
 
-    reader = PuzzleReader('./puzzles/4x4_01_00001.txt')
+    reader = PuzzleReader('./puzzles/4x4_07_00137.txt')
     puzzle = reader.getPuzzle()
 
     bfs = BFS(puzzle, "DULR")
@@ -54,9 +54,12 @@ main(1, 1, 1, 1, 1)
 #     if strategy not in ['bfs', 'dfs', 'astr']:
 #         raise Exception(f'Nieznana strategia: "{strategy}"')
 
-
-#     if (not re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) or len(param) != 4) or (param not in ['hamm', 'manh']):
-#         raise ValueError('Invalid method')
+#     if strategy == "astr" and param not in ['hamm', 'manh']:
+#         raise Exception(
+#             f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
+#     elif not re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) or len(param) != 4:
+#         raise Exception(
+#             f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
 
 #     main(strategy, param, puzzle_file, sol_file, stats_file)
 #     exit(0)
