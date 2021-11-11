@@ -1,15 +1,16 @@
 import copy
 from typing import Counter
 from classes.tools import eq_2d_array
+from copy import deepcopy
 
 
 class Puzzle:
 
     def __init__(self, width: int, height: int, array, id) -> None:
-        self.width = width
-        self.height = height
-        self.array = array
-        self.id = id
+        self.width = deepcopy(width)
+        self.height = deepcopy(height)
+        self.array = deepcopy(array)
+        self.id = deepcopy(id)
         self.to_recreate = ""
 
         self.zero_x = -1
@@ -24,9 +25,6 @@ class Puzzle:
                 break
         pass
 
-    def get_combination(self):
-        return self.to_recreate
-
     def __str__(self):
         to_return = ''
         for row in self.array:
@@ -36,18 +34,25 @@ class Puzzle:
         to_return += "\n------------------------------------\n"
         return to_return
 
-    def print(self) -> None:
-        """prints puzzle ¯\_(ツ)_/¯"""
-        for i in range(len(self.array)):
-            print(self.array[i])
+    def get_combination(self):
+        return self.to_recreate
+
+    def deep_copy(self):
+        new = Puzzle(self.width, self.height, self.array, self.id)
+        new.to_recreate = deepcopy(self.to_recreate)
+        new.zero_x = deepcopy(self.zero_x)
+        new.zero_y = deepcopy(self.zero_y)
+        return new
 
     def check_possible_moves(self):
         possibe_moves = []
+        changed = False
 
         # check if move to right is possible
         tmp = copy.deepcopy(self.array)
         self._moveR()
         if not eq_2d_array(tmp, self.array):
+            changed = True
             self._moveL()
             possibe_moves.append('R')
 
@@ -55,6 +60,7 @@ class Puzzle:
         tmp = copy.deepcopy(self.array)
         self._moveL()
         if not eq_2d_array(tmp, self.array):
+            changed = True
             self._moveR()
             possibe_moves.append('L')
 
@@ -62,6 +68,7 @@ class Puzzle:
         tmp = copy.deepcopy(self.array)
         self._moveU()
         if not eq_2d_array(tmp, self.array):
+            changed = True
             self._moveD()
             possibe_moves.append('U')
 
@@ -69,8 +76,12 @@ class Puzzle:
         tmp = copy.deepcopy(self.array)
         self._moveD()
         if not eq_2d_array(tmp, self.array):
+            changed = True
             self._moveU()
             possibe_moves.append('D')
+
+        if changed:
+            self.to_recreate = self.to_recreate[:-2]
 
         return possibe_moves
 
@@ -93,32 +104,19 @@ class Puzzle:
         ``R``ight, ``L``eft, ``U``p, ``D``own
         """
 
-        tmp = self.to_recreate[-1] if len(self.to_recreate) > 0 else ""
         match way:
             case 'R':
                 self._moveR()
-                if tmp == 'L':
-                    self.to_recreate = self.to_recreate[:-1]
-                else:
-                    self.to_recreate += 'R'
+                self.to_recreate += 'R'
             case 'L':
                 self._moveL()
-                if tmp == 'R':
-                    self.to_recreate = self.to_recreate[:-1]
-                else:
-                    self.to_recreate += 'L'
+                self.to_recreate += 'L'
             case 'U':
                 self._moveU()
-                if tmp == 'D':
-                    self.to_recreate = self.to_recreate[:-1]
-                else:
-                    self.to_recreate += 'U'
+                self.to_recreate += 'U'
             case 'D':
                 self._moveD()
-                if tmp == 'U':
-                    self.to_recreate = self.to_recreate[:-1]
-                else:
-                    self.to_recreate += 'D'
+                self.to_recreate += 'D'
             case _:
                 raise Exception(
                     f'Incorrect way "{way}" in puzzle with id "{self.id}"')
