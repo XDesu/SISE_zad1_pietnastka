@@ -4,7 +4,7 @@ import re
 from classes.puzzle import Puzzle
 
 
-def BFS(puzzle, method: str):
+def BFS(puzzle: Puzzle, method: str):
 
     # check method against regex
     if not re.match(r'[U,D,L,R]{4}', method):
@@ -14,7 +14,7 @@ def BFS(puzzle, method: str):
         return puzzle
 
     # create a new puzzle object
-    new_puzzle: Puzzle = deepcopy(puzzle)
+    new_puzzle = deepcopy(puzzle)
 
     # create a queue
     queue = []
@@ -36,10 +36,10 @@ def BFS(puzzle, method: str):
             return current_state
 
         # if the current state has not been visited
-        if current_state not in visited:
+        if current_state.get_combination() not in visited:
 
             # add the current state to the visited list
-            visited.append(current_state)
+            visited.append(current_state.get_combination())
 
             # get the possible moves from the current state
             moves = current_state.check_possible_moves()
@@ -54,10 +54,8 @@ def BFS(puzzle, method: str):
                 new_state.move(move)
 
                 # if the new state is not in the visited list
-                if new_state not in visited:
+                if new_state.get_combination() not in visited:
                     # add the new state to the queue
                     queue.append(new_state)
 
     return None
-
-    queue = []

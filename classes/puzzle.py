@@ -10,6 +10,7 @@ class Puzzle:
         self.height = height
         self.array = array
         self.id = id
+        self.to_recreate = ""
 
         self.zero_x = -1
         self.zero_y = -1
@@ -22,6 +23,9 @@ class Puzzle:
             if self.zero_x != -1:
                 break
         pass
+
+    def get_combination(self):
+        return self.to_recreate
 
     def __str__(self):
         to_return = ''
@@ -89,15 +93,32 @@ class Puzzle:
         ``R``ight, ``L``eft, ``U``p, ``D``own
         """
 
+        tmp = self.to_recreate[-1] if len(self.to_recreate) > 0 else ""
         match way:
             case 'R':
                 self._moveR()
+                if tmp == 'L':
+                    self.to_recreate = self.to_recreate[:-1]
+                else:
+                    self.to_recreate += 'R'
             case 'L':
                 self._moveL()
+                if tmp == 'R':
+                    self.to_recreate = self.to_recreate[:-1]
+                else:
+                    self.to_recreate += 'L'
             case 'U':
                 self._moveU()
+                if tmp == 'D':
+                    self.to_recreate = self.to_recreate[:-1]
+                else:
+                    self.to_recreate += 'U'
             case 'D':
                 self._moveD()
+                if tmp == 'U':
+                    self.to_recreate = self.to_recreate[:-1]
+                else:
+                    self.to_recreate += 'D'
             case _:
                 raise Exception(
                     f'Incorrect way "{way}" in puzzle with id "{self.id}"')

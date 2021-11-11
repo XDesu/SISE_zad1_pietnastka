@@ -8,17 +8,14 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     reader = PuzzleReader('./puzzles/4x4_07_00212.txt')
     puzzle = reader.getPuzzle()
 
-    # print(puzzle)
-    # puzzle.move("D")
-    # print(puzzle)
-    # puzzle.move("D")
-    # print(puzzle)
-    # puzzle.move("D")
-    # print(puzzle)
-    # puzzle.move("D")
-    # print(puzzle)
+    print(puzzle)
 
     print(BFS(puzzle, "RULD"))
+
+    for val in puzzle.get_combination():
+        puzzle.move(val)
+
+    print(puzzle)
 
     # print(puzzle.check_possible_moves())
 
