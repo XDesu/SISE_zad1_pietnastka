@@ -1,18 +1,27 @@
 import sys
 import re
+import os
 from classes.bfs_strategy import BFS
 
 from puzzle_reader import PuzzleReader
 
 
 def main(strategy, param, puzzle_file, sol_file, stats_file):
-    reader = PuzzleReader('./puzzles/4x4_07_00202.txt')
+
+    # create directories if they don't exist
+    if not os.path.exists("solved"):
+        os.makedirs("solved")
+    if not os.path.exists("additional"):
+        os.makedirs("additional")
+
+    reader = PuzzleReader('./puzzles/4x4_01_00001.txt')
     puzzle = reader.getPuzzle()
 
     bfs = BFS(puzzle, "DULR")
     bfs.solve()
+    bfs.generate_files("test.txt", "test.txt")
 
-    print(bfs.solved_file())
+    print(str(bfs.time_taken) + "ms")
 
     # print(f"method: {bfs.method}\nprocessed: {bfs.processed_states}\nvisited: {bfs.visited_states}\ntime_taken: {bfs.time_taken}ns\n")
     # print("oryginał:")
