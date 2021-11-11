@@ -6,10 +6,6 @@ from classes.puzzle import Puzzle
 
 def BFS(puzzle: Puzzle, method: str):
 
-    # check method against regex
-    if not re.match(r'[U,D,L,R]{4}', method):
-        raise ValueError('Invalid method')
-
     if puzzle.is_solved():
         return puzzle
 
@@ -43,9 +39,15 @@ def BFS(puzzle: Puzzle, method: str):
 
             # get the possible moves from the current state
             moves = current_state.check_possible_moves()
+            to_move = ""
+            for move in method:
+                if move in moves:
+                    to_move += move
+
+            print(to_move)
 
             # for each move
-            for move in moves:
+            for move in to_move:
 
                 # create a new state
                 new_state: Puzzle = deepcopy(current_state)

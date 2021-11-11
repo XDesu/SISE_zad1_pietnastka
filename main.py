@@ -1,4 +1,5 @@
 import sys
+import re
 from classes.bfs_strategy import BFS
 
 from puzzle_reader import PuzzleReader
@@ -8,14 +9,16 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     reader = PuzzleReader('./puzzles/4x4_07_00212.txt')
     puzzle = reader.getPuzzle()
 
-    print(puzzle)
+    BFS(puzzle, "DULR")
 
-    print(BFS(puzzle, "RULD"))
+    # print(puzzle)
 
-    for val in puzzle.get_combination():
-        puzzle.move(val)
+    # print(BFS(puzzle, "RULD"))
 
-    print(puzzle)
+    # for val in puzzle.get_combination():
+    #     puzzle.move(val)
+
+    # print(puzzle)
 
     # print(puzzle.check_possible_moves())
 
@@ -32,5 +35,8 @@ main(1, 1, 1, 1, 1)
 
 #     if strategy not in ['bfs', 'dfs', 'astr']:
 #         raise Exception(f'Nieznana strategia: "{strategy}"')
+
+#     if not re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) or len(param) != 4:
+#         raise ValueError('Invalid method')
 
 #     main(strategy, param, puzzle_file, sol_file, stats_file)
