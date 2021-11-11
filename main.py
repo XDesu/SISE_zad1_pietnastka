@@ -6,10 +6,19 @@ from puzzle_reader import PuzzleReader
 
 
 def main(strategy, param, puzzle_file, sol_file, stats_file):
-    reader = PuzzleReader('./puzzles/4x4_07_00212.txt')
+    reader = PuzzleReader('./puzzles/4x4_07_00202.txt')
     puzzle = reader.getPuzzle()
 
-    BFS(puzzle, "DULR")
+    bfs = BFS(puzzle, "DULR")
+    bfs.solve()
+
+    print(bfs.solved_file())
+
+    # print(f"method: {bfs.method}\nprocessed: {bfs.processed_states}\nvisited: {bfs.visited_states}\ntime_taken: {bfs.time_taken}ns\n")
+    # print("oryginał:")
+    # print(bfs.puzzle)
+    # print("rozwiązanie:")
+    # print(bfs.solved_puzzle)
 
     # print(puzzle)
 
@@ -36,7 +45,9 @@ main(1, 1, 1, 1, 1)
 #     if strategy not in ['bfs', 'dfs', 'astr']:
 #         raise Exception(f'Nieznana strategia: "{strategy}"')
 
-#     if not re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) or len(param) != 4:
+
+#     if (not re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) or len(param) != 4) or (param not in ['hamm', 'manh']):
 #         raise ValueError('Invalid method')
 
 #     main(strategy, param, puzzle_file, sol_file, stats_file)
+#     exit(0)
