@@ -5,16 +5,20 @@ from puzzle_reader import PuzzleReader
 
 
 def main(strategy, param, puzzle_file, sol_file, stats_file):
-    reader = PuzzleReader('./puzzles/4x4_01_00002.txt')
+    reader = PuzzleReader('./puzzles/4x4_07_00212.txt')
     puzzle = reader.getPuzzle()
 
-    print(puzzle)
-    puzzle.move("R")
-    print(puzzle)
-    puzzle.move("R")
-    print(puzzle)
+    # print(puzzle)
+    # puzzle.move("D")
+    # print(puzzle)
+    # puzzle.move("D")
+    # print(puzzle)
+    # puzzle.move("D")
+    # print(puzzle)
+    # puzzle.move("D")
+    # print(puzzle)
 
-    # print(BFS(puzzle, "RULD"))
+    print(BFS(puzzle, "RULD"))
 
     # print(puzzle.check_possible_moves())
 

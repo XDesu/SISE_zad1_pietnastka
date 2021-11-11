@@ -1,6 +1,5 @@
 import copy
 from typing import Counter
-
 from classes.tools import eq_2d_array
 
 
@@ -19,19 +18,18 @@ class Puzzle:
                 if value == 0:
                     self.zero_x = i
                     self.zero_y = j
+                    break
+            if self.zero_x != -1:
+                break
         pass
 
     def __str__(self):
         to_return = ''
         for row in self.array:
             to_return += "\n------------------------------------\n| "
-            # print("\n------------------------------------")
-            # print("| ", end="")
             for value in row:
                 to_return += str(value) + " | "
-                # print(value, end=" | ")
         to_return += "\n------------------------------------\n"
-        # print("\n------------------------------------")
         return to_return
 
     def print(self) -> None:
@@ -105,39 +103,29 @@ class Puzzle:
                     f'Incorrect way "{way}" in puzzle with id "{self.id}"')
 
     def _moveR(self):
-        if (self.zero_y + 1) == self.width:
+        if (self.zero_y - 1) < 0:
+            return
+        self.array[self.zero_x][self.zero_y], self.array[self.zero_x][self.zero_y -
+                                                                      1] = self.array[self.zero_x][self.zero_y - 1], self.array[self.zero_x][self.zero_y]
+        self.zero_y -= 1
+
+    def _moveL(self):
+        if (self.zero_y + 1) >= self.width:
             return
         self.array[self.zero_x][self.zero_y], self.array[self.zero_x][self.zero_y +
                                                                       1] = self.array[self.zero_x][self.zero_y + 1], self.array[self.zero_x][self.zero_y]
-
-    # def _moveR(self):
-    #     for i in range(self.height):
-    #         for j in range(1, self.width):
-    #             if self.array[i][j] == 0:
-    #                 self.array[i][j], self.array[i][j
-    #                                                 - 1] = self.array[i][j-1], self.array[i][j]
-    #                 return
-
-    def _moveL(self):
-        for i in range(self.height):
-            for j in range(self.width-1):
-                if self.array[i][j] == 0:
-                    self.array[i][j], self.array[i][j
-                                                    + 1] = self.array[i][j+1], self.array[i][j]
-                    return
+        self.zero_y += 1
 
     def _moveU(self):
-        for i in range(self.height-1):
-            for j in range(self.width):
-                if self.array[i][j] == 0:
-                    self.array[i][j], self.array[i
-                                                 + 1][j] = self.array[i+1][j], self.array[i][j]
-                    return
+        if(self.zero_x + 1) >= self.height:
+            return
+        self.array[self.zero_x][self.zero_y], self.array[self.zero_x +
+                                                         1][self.zero_y] = self.array[self.zero_x + 1][self.zero_y], self.array[self.zero_x][self.zero_y]
+        self.zero_x += 1
 
     def _moveD(self):
-        for i in range(1, self.height):
-            for j in range(self.width):
-                if self.array[i][j] == 0:
-                    self.array[i][j], self.array[i
-                                                 - 1][j] = self.array[i-1][j], self.array[i][j]
-                    return
+        if(self.zero_x - 1) < 0:
+            return
+        self.array[self.zero_x][self.zero_y], self.array[self.zero_x -
+                                                         1][self.zero_y] = self.array[self.zero_x - 1][self.zero_y], self.array[self.zero_x][self.zero_y]
+        self.zero_x -= 1
