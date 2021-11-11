@@ -2,8 +2,15 @@ import sys
 import re
 import os
 from classes.bfs_strategy import BFS
+from classes.dfs_strategy import DFS
 
 from puzzle_reader import PuzzleReader
+
+# porównywać faktyczne ustawienie zamiast listy kroków
+# i zaimplementować to, szczególnie w DFS
+# dobrze by było przez klase Puzzle
+
+# coś się pierdoli z kopiowaniem, albo chuj wie co
 
 
 def main(strategy, param, puzzle_file, sol_file, stats_file):
@@ -14,8 +21,16 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     if not os.path.exists("additional"):
         os.makedirs("additional")
 
-    reader = PuzzleReader('./puzzles/4x4_07_00137.txt')
+    reader = PuzzleReader('./puzzles/4x4_07_00001.txt')
     puzzle = reader.getPuzzle()
+
+    # dfs = DFS(puzzle, "UDLR")
+    # dfs.solve()
+    # dfs.generate_files("test.txt", "test.txt")
+
+    # print(dfs.solved_puzzle)
+
+    # print(str(dfs.time_taken) + "ms")
 
     bfs = BFS(puzzle, "DULR")
     bfs.solve()
