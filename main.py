@@ -22,37 +22,37 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     if not os.path.exists("additional"):
         os.makedirs("additional")
 
-    reader = PuzzleReader('./puzzles/4x4_02_00001.txt')
+    reader = PuzzleReader('./puzzles/4x4_07_00001.txt')
     puzzle = reader.getPuzzle()
 
     # print(puzzle.check_possible_moves())
 
-    # dfs = DFS(puzzle, "RDLU")
-    # dfs.solve()
-    # dfs.generate_files("test.txt", "test.txt")
+    dfs = DFS(puzzle, "RDLU")
+    dfs.solve()
+    dfs.generate_files("test.txt", "test.txt")
 
-    # print(dfs.solved_puzzle)
+    print(dfs.solved_puzzle)
 
-    # print(str(dfs.time_taken) + "ms")
-    # print(str(dfs.visited_states) + " vis")
-    # print(str(dfs.processed_states) + " proc")
-    # print(str(dfs.solved_puzzle.get_combination()) + " comb")
+    print(str(dfs.time_taken) + "ms")
+    print(str(dfs.visited_states) + " vis")
+    print(str(dfs.processed_states) + " proc")
+    print(str(dfs.solved_puzzle.get_combination()) + " comb")
 
-    bfs = BFS(puzzle, "RDLU")
-    bfs.solve()
-    bfs.generate_files("test.txt", "test.txt")
+    # bfs = BFS(puzzle, "RDLU")
+    # bfs.solve()
+    # bfs.generate_files("test.txt", "test.txt")
 
-    print(str(bfs.time_taken) + "ms")
-    print(str(bfs.visited_states) + "vis")
-    print(str(bfs.processed_states) + "proc")
+    # print(str(bfs.time_taken) + "ms")
+    # print(str(bfs.visited_states) + "vis")
+    # print(str(bfs.processed_states) + "proc")
 
-    print(f"method: {bfs.method}\nprocessed: {bfs.processed_states}\nvisited: {bfs.visited_states}\ntime_taken: {bfs.time_taken}ns\n")
-    print(bfs.solved_puzzle.get_combination())
+    # print(f"method: {bfs.method}\nprocessed: {bfs.processed_states}\nvisited: {bfs.visited_states}\ntime_taken: {bfs.time_taken}ns\n")
+    # print(bfs.solved_puzzle.get_combination())
 
-    print("oryginał:")
-    print(bfs.puzzle)
-    print("rozwiązanie:")
-    print(bfs.solved_puzzle)
+    # print("oryginał:")
+    # print(bfs.puzzle)
+    # print("rozwiązanie:")
+    # print(bfs.solved_puzzle)
 
     # print(puzzle)
 

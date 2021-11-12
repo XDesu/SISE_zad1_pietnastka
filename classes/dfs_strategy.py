@@ -5,7 +5,7 @@ from copy import deepcopy
 
 class DFS():
 
-    MAX_DEPTH = 4
+    MAX_DEPTH = 20
 
     def __init__(self, puzzle: Puzzle, method: str):
         self.puzzle: Puzzle = puzzle
@@ -61,8 +61,8 @@ class DFS():
         # jeżeli jest w odwiedzonych, to nie przetwarzam
         # jeżeli nie ma w odwiedzonych, to zapisuję i przetwarzam
         self.visited_states += 1
-        if puzzle in self.visited:
-            return
+        # if puzzle in self.visited:
+        #     return
         self.visited.append(puzzle.deep_copy())
         self.processed_states += 1
 
@@ -82,7 +82,6 @@ class DFS():
             if move in moves:
                 to_move += move
 
-        # for each move
         for move in to_move:
             new_state = puzzle.deep_copy()
             new_state.move(move)
