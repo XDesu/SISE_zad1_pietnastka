@@ -1,7 +1,6 @@
+from classes.puzzle import Puzzle
 from copy import deepcopy
 from time import perf_counter_ns as perf
-
-from classes.puzzle import Puzzle
 
 
 class BFS():
@@ -56,7 +55,7 @@ class BFS():
             return
 
         # create a new puzzle object
-        new_puzzle = deepcopy(self.puzzle)
+        new_puzzle = self.puzzle.deep_copy()
 
         # create a queue
         queue = []
@@ -80,11 +79,11 @@ class BFS():
                 return
 
             # if the current state has not been visited
-            if current_state.get_combination() not in visited:
+            if current_state not in visited:
                 self.processed_states += 1
 
                 # add the current state to the visited list
-                visited.append(current_state.get_combination())
+                visited.append(current_state.deep_copy())
 
                 # get the possible moves from the current state
                 moves = current_state.check_possible_moves()
@@ -103,7 +102,7 @@ class BFS():
                     new_state.move(move)
 
                     # if the new state is not in the visited list
-                    if new_state.get_combination() not in visited:
+                    if new_state not in visited:
                         # add the new state to the queue
                         queue.append(new_state)
 

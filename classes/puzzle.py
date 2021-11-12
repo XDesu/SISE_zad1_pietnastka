@@ -34,54 +34,45 @@ class Puzzle:
         to_return += "\n------------------------------------\n"
         return to_return
 
+    def __hash__(self) -> int:
+        raise Exception('Not implemented')
+        to_hash = ''
+        for row in self.array:
+            for value in row:
+                to_hash += str(value)
+        return hash(to_hash)
+
+    def __repr__(self) -> str:
+        raise Exception('Not implemented')
+
+    def __eq__(self, other: 'Puzzle') -> bool:
+        return eq_2d_array(self.array, other.array)
+
     def get_combination(self):
         return self.to_recreate
 
     def deep_copy(self):
         new = Puzzle(self.width, self.height, self.array, self.id)
         new.to_recreate = deepcopy(self.to_recreate)
+        # new.to_recreate = self.to_recreate + ".")[:-1]
+        # new.to_recreate = self.to_recreate[:]
         new.zero_x = deepcopy(self.zero_x)
         new.zero_y = deepcopy(self.zero_y)
+        # for val in self.get_combination():
+        #     new.move(val)
         return new
 
     def check_possible_moves(self):
         possibe_moves = []
-        changed = False
 
-        # check if move to right is possible
-        tmp = copy.deepcopy(self.array)
-        self._moveR()
-        if not eq_2d_array(tmp, self.array):
-            changed = True
-            self._moveL()
+        if self.zero_y > 0:
             possibe_moves.append('R')
-
-        # check if move to left is possible
-        tmp = copy.deepcopy(self.array)
-        self._moveL()
-        if not eq_2d_array(tmp, self.array):
-            changed = True
-            self._moveR()
+        if self.zero_y < self.width - 1:
             possibe_moves.append('L')
-
-        # check if move up is possible
-        tmp = copy.deepcopy(self.array)
-        self._moveU()
-        if not eq_2d_array(tmp, self.array):
-            changed = True
-            self._moveD()
-            possibe_moves.append('U')
-
-        # check if move down is possible
-        tmp = copy.deepcopy(self.array)
-        self._moveD()
-        if not eq_2d_array(tmp, self.array):
-            changed = True
-            self._moveU()
+        if self.zero_x > 0:
             possibe_moves.append('D')
-
-        if changed:
-            self.to_recreate = self.to_recreate[:-2]
+        if self.zero_x < self.height - 1:
+            possibe_moves.append('U')
 
         return possibe_moves
 
@@ -108,15 +99,19 @@ class Puzzle:
             case 'R':
                 self._moveR()
                 self.to_recreate += 'R'
+                # self.to_recreate.append('R')
             case 'L':
                 self._moveL()
                 self.to_recreate += 'L'
+                # self.to_recreate.append('L')
             case 'U':
                 self._moveU()
                 self.to_recreate += 'U'
+                # self.to_recreate.append('U')
             case 'D':
                 self._moveD()
                 self.to_recreate += 'D'
+                # self.to_recreate.append('D')
             case _:
                 raise Exception(
                     f'Incorrect way "{way}" in puzzle with id "{self.id}"')

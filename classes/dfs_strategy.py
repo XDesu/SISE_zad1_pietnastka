@@ -1,11 +1,11 @@
 from classes.puzzle import Puzzle
-from copy import deepcopy
 from time import perf_counter_ns as perf
+from copy import deepcopy
 
 
 class DFS():
 
-    MAX_DEPTH = 20
+    MAX_DEPTH = 4
 
     def __init__(self, puzzle: Puzzle, method: str):
         self.puzzle: Puzzle = puzzle
@@ -15,6 +15,7 @@ class DFS():
         self.processed_states: int = 0
         self.visited_states: int = 0
         self.max_depth: int = 0
+        self.visited = []
 
     def generate_files(self, sol_file, add_file):
         self.generate_solve_file(sol_file)
@@ -49,25 +50,31 @@ class DFS():
     def solve(self):
         start = perf()
         self._solve(self.puzzle.deep_copy())
-        self.time_taken = (perf() - start) / 1000000  # ns to ms
+        self.time_taken = round((perf() - start) / 1000000, 3)  # ns to ms
 
-    def _solve(self, puzzle: Puzzle, depth: int = 0):
+    def _solve(self, puzzle: 'Puzzle', depth: int = 0):
+        # jeżeli rozwiązane, to kończ
         if self.solved_puzzle is not None:
             return
 
+        # jeżeli wszedłem, to odwiedziłem
+        # jeżeli jest w odwiedzonych, to nie przetwarzam
+        # jeżeli nie ma w odwiedzonych, to zapisuję i przetwarzam
         self.visited_states += 1
+        if puzzle in self.visited:
+            return
+        self.visited.append(puzzle.deep_copy())
+        self.processed_states += 1
 
-        if depth > self.MAX_DEPTH:
+        if depth > self.max_depth:
             self.max_depth = depth
 
         if puzzle.is_solved():
             self.solved_puzzle = puzzle.deep_copy()
             return
 
-        if depth > self.MAX_DEPTH:
+        if depth > DFS.MAX_DEPTH:
             return
-
-        self.visited_states += 1
 
         moves = puzzle.check_possible_moves()
         to_move = ""
@@ -77,13 +84,12 @@ class DFS():
 
         # for each move
         for move in to_move:
-            self.processed_states += 1
             new_state = puzzle.deep_copy()
             new_state.move(move)
-            # print(new_state.get_combination())
-            for i in range(depth):
-                print(" ", end="")
-                print(new_state.get_combination())
             self._solve(new_state, depth + 1)
+
+            # jeżeli rozwiązane, to kończ
+            if self.solved_puzzle is not None:
+                return
 
         return
