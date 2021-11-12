@@ -68,42 +68,31 @@ class BFS():
 
         # while the queue is not empty
         while queue:
+
+            # jeżeli wszedłem, to odwiedziłem
+            # jeżeli jest w odwiedzonych, to nie przetwarzam
+            # jeżeli nie ma w odwiedzonych, to zapisuję i przetwarzam
             self.visited_states += 1
-
-            # get the first state in the queue
             current_state: Puzzle = queue.pop(0)
+            if current_state in visited:
+                continue
+            visited.append(current_state.deep_copy())
+            self.processed_states += 1
 
-            # if the current state is the goal state
             if current_state.is_solved():
                 self.solved_puzzle = current_state
                 return
 
-            # if the current state has not been visited
-            if current_state not in visited:
-                self.processed_states += 1
+            # wygeneruj dostępne ruchy w odpowiedniej kolejności
+            moves = current_state.check_possible_moves()
+            to_move = ""
+            for move in self.method:
+                if move in moves:
+                    to_move += move
 
-                # add the current state to the visited list
-                visited.append(current_state.deep_copy())
-
-                # get the possible moves from the current state
-                moves = current_state.check_possible_moves()
-                to_move = ""
-                for move in self.method:
-                    if move in moves:
-                        to_move += move
-
-                # for each move
-                for move in to_move:
-
-                    # create a new state
-                    new_state: Puzzle = deepcopy(current_state)
-
-                    # make the move
-                    new_state.move(move)
-
-                    # if the new state is not in the visited list
-                    if new_state not in visited:
-                        # add the new state to the queue
-                        queue.append(new_state)
+            for move in to_move:
+                new_state: Puzzle = deepcopy(current_state)
+                new_state.move(move)
+                queue.append(new_state)
 
         return

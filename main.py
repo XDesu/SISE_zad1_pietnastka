@@ -22,7 +22,7 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     if not os.path.exists("additional"):
         os.makedirs("additional")
 
-    reader = PuzzleReader('./puzzles/4x4_07_00001.txt')
+    reader = PuzzleReader('./puzzles/4x4_02_00001.txt')
     puzzle = reader.getPuzzle()
 
     # print(puzzle.check_possible_moves())
@@ -47,6 +47,8 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     print(str(bfs.processed_states) + "proc")
 
     print(f"method: {bfs.method}\nprocessed: {bfs.processed_states}\nvisited: {bfs.visited_states}\ntime_taken: {bfs.time_taken}ns\n")
+    print(bfs.solved_puzzle.get_combination())
+
     print("oryginał:")
     print(bfs.puzzle)
     print("rozwiązanie:")
