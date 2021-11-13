@@ -4,6 +4,7 @@ import os
 from classes.bfs_strategy import BFS
 from classes.dfs_strategy import DFS
 from test import test
+from classes.a_star_strategy import A_star
 
 from puzzle_reader import PuzzleReader
 
@@ -25,18 +26,20 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     reader = PuzzleReader('./puzzles/4x4_07_00001.txt')
     puzzle = reader.getPuzzle()
 
-    # print(puzzle.check_possible_moves())
+    astr = A_star(puzzle, "manh")
+    astr.solve()
+    print(astr.solved_puzzle)
 
-    dfs = DFS(puzzle, "RDLU")
-    dfs.solve()
-    dfs.generate_files("test.txt", "test.txt")
+    # dfs = DFS(puzzle, "RDLU")
+    # dfs.solve()
+    # dfs.generate_files("test.txt", "test.txt")
 
-    print(dfs.solved_puzzle)
+    # print(dfs.solved_puzzle)
 
-    print(str(dfs.time_taken) + "ms")
-    print(str(dfs.visited_states) + " vis")
-    print(str(dfs.processed_states) + " proc")
-    print(str(dfs.solved_puzzle.get_combination()) + " comb")
+    # print(str(dfs.time_taken) + "ms")
+    # print(str(dfs.visited_states) + " vis")
+    # print(str(dfs.processed_states) + " proc")
+    # print(str(dfs.solved_puzzle.get_combination()) + " comb")
 
     # bfs = BFS(puzzle, "RDLU")
     # bfs.solve()
