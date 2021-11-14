@@ -12,6 +12,17 @@ class BFS():
         self.time_taken: float = 0.0
         self.processed_states: int = 0
         self.visited_states: int = 0
+        self.max_depth: int = 0
+
+    def __str__(self):
+        to_return = f"{self.solved_puzzle}\n"
+        to_return += f"solution: {self.solved_puzzle.get_combination()}({len(self.solved_puzzle.get_combination())})\n"
+        to_return += f"method: {self.method}\n"
+        to_return += f"time: {self.time_taken} ms\n"
+        to_return += f"visited: {self.visited_states}\n"
+        to_return += f"processed: {self.processed_states}\n"
+        to_return += f"max depth: {self.max_depth}\n"
+        return to_return
 
     def generate_files(self, sol_file, add_file):
         self.generate_solve_file(sol_file)
@@ -38,7 +49,7 @@ class BFS():
         f.write(f"{str(length)}\n")
         f.write(str(self.visited_states) + "\n")
         f.write(str(self.processed_states) + "\n")
-        f.write("0\n")  # głębokość rekursji
+        f.write(str(self.max_depth) + "\n")
         f.write(str(self.time_taken))
 
         f.close()
@@ -54,19 +65,13 @@ class BFS():
         if self.puzzle.is_solved():
             return
 
-        # create a new puzzle object
         new_puzzle = self.puzzle.deep_copy()
 
-        # create a queue
         queue = []
-
-        # add the initial state to the queue
         queue.append(new_puzzle)
 
-        # create a list of visited states
         visited = []
 
-        # while the queue is not empty
         while queue:
 
             # jeżeli wszedłem, to odwiedziłem
@@ -78,6 +83,9 @@ class BFS():
                 continue
             visited.append(current_state.deep_copy())
             self.processed_states += 1
+
+            if len(current_state.get_combination()) > self.max_depth:
+                self.max_depth = len(current_state.get_combination())
 
             if current_state.is_solved():
                 self.solved_puzzle = current_state

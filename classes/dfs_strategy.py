@@ -17,6 +17,16 @@ class DFS():
         self.max_depth: int = 0
         self.visited = []
 
+    def __str__(self):
+        to_return = f"{self.solved_puzzle}\n"
+        to_return += f"solution: {self.solved_puzzle.get_combination()}({len(self.solved_puzzle.get_combination())})\n"
+        to_return += f"method: {self.method}\n"
+        to_return += f"time: {self.time_taken} ms\n"
+        to_return += f"visited: {self.visited_states}\n"
+        to_return += f"processed: {self.processed_states}\n"
+        to_return += f"max depth: {self.max_depth}\n"
+        return to_return
+
     def generate_files(self, sol_file, add_file):
         self.generate_solve_file(sol_file)
         self.generate_additional_file(add_file)

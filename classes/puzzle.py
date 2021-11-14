@@ -35,7 +35,7 @@ class Puzzle:
         return to_return
 
     def __hash__(self) -> int:
-        raise Exception('Not implemented')
+        # raise Exception('Not implemented')
         to_hash = ''
         for row in self.array:
             for value in row:
