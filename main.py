@@ -66,11 +66,14 @@ if __name__ == "__main__":
         # raise Exception(
         #     f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
 
-    if re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) and len(param) != 4:
+    if re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) and len(param) == 4:
         ok = True
         # raise Exception(
         #     f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
 
     if ok:
         main(strategy, param, puzzle_file, sol_file, stats_file)
+    else:
+        raise Exception(
+            f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
     exit(0)

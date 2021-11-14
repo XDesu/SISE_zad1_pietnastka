@@ -23,15 +23,13 @@
 
 param([string]$strategy, [string]$param)
 
-cd puzzles
-
-$Progcmd = 'py ./../main.py'
+$Progcmd = 'py ./main.py'
 $Orders = @('RDUL', 'RDLU', 'DRUL', 'DRLU', 'LUDR',  'LURD', 'ULDR', 'ULRD')
 $Heuristics = @('hamm', 'manh')
 $InitFilenameRegex = '^[a-zA-Z0-9]+_[0-9]+_[0-9]+.txt$'
 
 function RunProg([string]$strategy, [string]$param) {
-    Get-ChildItem -File | Where-Object { $_.Name -match $InitFilenameRegex } | ForEach-Object {
+    Get-ChildItem -Path "./puzzles" -File | Where-Object { $_.Name -match $InitFilenameRegex } | ForEach-Object {
         $FilenameRoot = '{0}_{1}_{2}' -f $_.BaseName, $strategy, $param.ToLower()
         $SolFilename = '{0}_sol.txt' -f $FilenameRoot
         $StatsFilename = '{0}_stats.txt' -f $FilenameRoot
@@ -104,5 +102,3 @@ if (!$PSBoundParameters.ContainsKey('strategy')) {
         }
     }
 }
-
-cd ..

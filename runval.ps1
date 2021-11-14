@@ -18,24 +18,25 @@
 # actual program, using the absolute (or relative) path, for example:
 #  $Progcmd = 'java -jar C:\Users\User\15puzzle\bin\puzzleval.jar'
 
-cd solutions
 $Progcmd = 'java -jar ./puzzleval.jar'
 $SolFilenameRegex = '^[a-zA-Z0-9]+_[0-9]+_[0-9]+_[a-zA-Z]+_[a-zA-Z]+_sol.txt$'
 
 $NumCorrectSols = 0
 $NumIncorrectSols = 0
 [System.Collections.ArrayList]$IncorrectSolFilenames = @()
-Get-ChildItem -File | Where-Object { $_.Name -match $SolFilenameRegex } | ForEach-Object {
+Get-ChildItem -Path "./solutions" -File | Where-Object { $_.Name -match $SolFilenameRegex } | ForEach-Object {
     $SplitFilename = $_.Name.Split('_');
     $InitFilename = $('{0}_{1}_{2}.txt' -f $SplitFilename[0], $SplitFilename[1], $SplitFilename[2])
     Write-Host $('{0}: ' -f $_.Name) -NoNewline
     Invoke-Expression $('{0} {1} {2}' -f $Progcmd, $InitFilename, $_.Name)
     if ($LastExitCode -eq 0) {
         $NumCorrectSols++
-    } elseif ($LastExitCode -eq 1) {
+    }
+    elseif ($LastExitCode -eq 1) {
         $NumIncorrectSols++;
         [void]$IncorrectSolFilenames.Add($_.Name)
-    } else {
+    }
+    else {
         Write-Error 'Fatal error.'
         exit 1
     }
@@ -44,8 +45,6 @@ Get-ChildItem -File | Where-Object { $_.Name -match $SolFilenameRegex } | ForEac
 Write-Host '----- Summary -----'
 Write-Host $('Correct solutions: {0}' -f $NumCorrectSols) -ForegroundColor Green
 Write-Host $('Incorrect solutions: {0}' -f $NumIncorrectSols) -ForegroundColor Red
-foreach($Filename in $IncorrectSolFilenames) {
+foreach ($Filename in $IncorrectSolFilenames) {
     Write-Host $Filename -ForegroundColor Red
 }
-
-cd ..
