@@ -18,10 +18,10 @@ from puzzle_reader import PuzzleReader
 def main(strategy, param, puzzle_file, sol_file, stats_file):
 
     # create directories if they don't exist
-    if not os.path.exists("solved"):
-        os.makedirs("solved")
-    if not os.path.exists("additional"):
-        os.makedirs("additional")
+    if not os.path.exists("solutions"):
+        os.makedirs("solutions")
+    if not os.path.exists("statistics"):
+        os.makedirs("statistics")
 
     reader = PuzzleReader('./puzzles/4x4_07_00001.txt')
     puzzle = reader.getPuzzle()

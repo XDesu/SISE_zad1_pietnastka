@@ -22,7 +22,7 @@ class DFS():
         self.generate_additional_file(add_file)
 
     def generate_solve_file(self, file_name: str):
-        f = open("solved/" + file_name, "w")
+        f = open("solutions/" + file_name, "w")
 
         if len(self.solved_puzzle.get_combination()) == 0:
             f.write("-1")
@@ -35,7 +35,7 @@ class DFS():
         f.close()
 
     def generate_additional_file(self, file_name: str):
-        f = open("additional/" + file_name, "w")
+        f = open("statistics/" + file_name, "w")
 
         length = len(self.solved_puzzle.get_combination()) if len(
             self.solved_puzzle.get_combination()) > 0 else -1
