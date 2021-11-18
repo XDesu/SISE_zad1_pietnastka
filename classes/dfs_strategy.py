@@ -15,7 +15,7 @@ class DFS():
         self.processed_states: int = 0
         self.visited_states: int = 0
         self.max_depth: int = 0
-        self.visited = []
+        # self.visited = []
 
     def __str__(self):
         to_return = f"{self.solved_puzzle}\n"
@@ -73,7 +73,7 @@ class DFS():
         self.visited_states += 1
         # if puzzle in self.visited:
         #     return
-        self.visited.append(puzzle.deep_copy())
+        # self.visited.append(puzzle.deep_copy())
         self.processed_states += 1
 
         if depth > self.max_depth:
@@ -83,7 +83,7 @@ class DFS():
             self.solved_puzzle = puzzle.deep_copy()
             return
 
-        if depth > DFS.MAX_DEPTH:
+        if depth >= DFS.MAX_DEPTH:
             return
 
         moves = puzzle.check_possible_moves()

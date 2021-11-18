@@ -33,21 +33,22 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
         astar.solve()
         astar.generate_files(sol_file, stats_file)
 
-    # reader = PuzzleReader('./puzzles/4x4_07_00001.txt')
-    # puzzle = reader.getPuzzle()
-    # astr_h = A_star(puzzle, "hamm")
-    # astr_h.solve()
-    # print(astr_h)
-    # astr_m = A_star(puzzle, "manh")
-    # astr_m.solve()
-    # print(astr_m)
-    # dfs = DFS(puzzle, "RDLU")
-    # dfs.solve()
-    # print(dfs)
-    # bfs = BFS(puzzle, "RDLU")
-    # bfs.solve()
-    # print(bfs)
-# main(1, 1, 1, 1, 1)
+
+# reader = PuzzleReader('./test.txt')
+# puzzle = reader.getPuzzle()
+# astr_h = A_star(puzzle, "hamm")
+# astr_h.solve()
+# print(astr_h)
+# astr_m = A_star(puzzle, "manh")
+# astr_m.solve()
+# print(astr_m)
+# dfs = DFS(puzzle, "RDUL")
+# dfs.solve()
+# print(dfs)
+# bfs = BFS(puzzle, "RDLU")
+# bfs.solve()
+# print(bfs)
+
 if __name__ == "__main__":
     args = sys.argv
     strategy = args[1]
