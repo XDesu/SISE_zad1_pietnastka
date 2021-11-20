@@ -35,31 +35,37 @@ class Puzzle:
         return to_return
 
     def __hash__(self) -> int:
-        # raise Exception('Not implemented')
         to_hash = ''
         for row in self.array:
             for value in row:
                 to_hash += str(value)
         return hash(to_hash)
 
-    def __repr__(self) -> str:
-        raise Exception('Not implemented')
-
     def __eq__(self, other: 'Puzzle') -> bool:
         return eq_2d_array(self.array, other.array)
 
-    def get_combination(self):
+    def get_tocreate(self):
         return self.to_recreate
+
+    def get_combination(self):
+        combination = ""
+        for letter in self.to_recreate:
+            match letter:
+                case 'R':
+                    combination += 'L'
+                case 'L':
+                    combination += 'R'
+                case 'U':
+                    combination += 'D'
+                case 'D':
+                    combination += 'U'
+        return combination
 
     def deep_copy(self):
         new = Puzzle(self.width, self.height, self.array, self.id)
         new.to_recreate = deepcopy(self.to_recreate)
-        # new.to_recreate = self.to_recreate + ".")[:-1]
-        # new.to_recreate = self.to_recreate[:]
         new.zero_x = deepcopy(self.zero_x)
         new.zero_y = deepcopy(self.zero_y)
-        # for val in self.get_combination():
-        #     new.move(val)
         return new
 
     def check_possible_moves(self):
@@ -99,19 +105,15 @@ class Puzzle:
             case 'R':
                 self._moveR()
                 self.to_recreate += 'R'
-                # self.to_recreate.append('R')
             case 'L':
                 self._moveL()
                 self.to_recreate += 'L'
-                # self.to_recreate.append('L')
             case 'U':
                 self._moveU()
                 self.to_recreate += 'U'
-                # self.to_recreate.append('U')
             case 'D':
                 self._moveD()
                 self.to_recreate += 'D'
-                # self.to_recreate.append('D')
             case _:
                 raise Exception(
                     f'Incorrect way "{way}" in puzzle with id "{self.id}"')

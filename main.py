@@ -15,7 +15,7 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
     if not os.path.exists("statistics"):
         os.makedirs("statistics")
 
-    puzzle_reader = PuzzleReader('test.txt')
+    puzzle_reader = PuzzleReader(f"./puzzles/{puzzle_file}")
     puzzle = puzzle_reader.getPuzzle()
 
     if strategy == "bfs":
@@ -34,7 +34,7 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
         astar.generate_files(sol_file, stats_file)
 
 
-# reader = PuzzleReader('./test.txt')
+# reader = PuzzleReader('./puzzles/4x4_01_00001.txt')
 # puzzle = reader.getPuzzle()
 # astr_h = A_star(puzzle, "hamm")
 # astr_h.solve()
@@ -45,7 +45,7 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
 # dfs = DFS(puzzle, "RDUL")
 # dfs.solve()
 # print(dfs)
-# bfs = BFS(puzzle, "RDLU")
+# bfs = BFS(puzzle, "RDUL")
 # bfs.solve()
 # print(bfs)
 
