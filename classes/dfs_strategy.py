@@ -73,7 +73,7 @@ class DFS():
         self.visited_states += 1
         # if puzzle in self.visited:
         #     return
-        self.visited.append(puzzle.deep_copy())
+        # self.visited.append(puzzle.deep_copy())
         self.processed_states += 1
 
         if depth > self.max_depth:
