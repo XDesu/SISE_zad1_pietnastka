@@ -1,6 +1,6 @@
 # solucje i statystyki
-solutions/
-statistics/
+solutions/*.txt
+statistics/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

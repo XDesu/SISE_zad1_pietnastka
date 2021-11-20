@@ -28,7 +28,7 @@ Get-ChildItem -Path "./solutions" -File | Where-Object { $_.Name -match $SolFile
     $SplitFilename = $_.Name.Split('_');
     $InitFilename = $('{0}_{1}_{2}.txt' -f $SplitFilename[0], $SplitFilename[1], $SplitFilename[2])
     Write-Host $('{0}: ' -f $_.Name) -NoNewline
-    Invoke-Expression $('{0} {1} ./solutions/{2}' -f $Progcmd, $InitFilename, $_.Name)
+    Invoke-Expression $('{0} ./puzzles/{1} ./solutions/{2}' -f $Progcmd, $InitFilename, $_.Name)
     if ($LastExitCode -eq 0) {
         $NumCorrectSols++
     }
