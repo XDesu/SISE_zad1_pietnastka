@@ -71,7 +71,7 @@ class A_star():
     def generate_solve_file(self, file_name: str):
         f = open("solutions/" + file_name, "w")
 
-        if len(self.solved_puzzle.get_combination()) == 0:
+        if not self.solved_puzzle:
             f.write("-1")
             f.close()
             return
