@@ -15,7 +15,7 @@ class DFS():
         self.processed_states: int = 0
         self.visited_states: int = 0
         self.max_depth: int = 0
-        # self.visited = []
+        self.visited = {}
 
     def __str__(self):
         to_return = f"{self.solved_puzzle}\n"
@@ -71,9 +71,15 @@ class DFS():
         # jeżeli jest w odwiedzonych, to nie przetwarzam
         # jeżeli nie ma w odwiedzonych, to zapisuję i przetwarzam
         self.visited_states += 1
-        # if puzzle in self.visited:
-        #     return
-        # self.visited.append(puzzle.deep_copy())
+
+        # spowalniacz. W przypadku analizy odwiedzonych stanów
+        # przetwarzanie staje się nawet 40 razy dłuższe
+        # zaletą jest to, że wychodzą lepsze wyniki (krótsze rozwiązania)
+        hash_key = str(hash(puzzle))
+        if hash_key in self.visited:
+            return
+        self.visited[hash_key] = True
+
         self.processed_states += 1
 
         if depth > self.max_depth:
