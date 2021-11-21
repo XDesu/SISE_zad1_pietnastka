@@ -84,8 +84,8 @@ class A_star():
     def generate_additional_file(self, file_name: str):
         f = open("statistics/" + file_name, "w")
 
-        length = len(self.solved_puzzle.get_combination()) if len(
-            self.solved_puzzle.get_combination()) > 0 else -1
+        length = len(self.solved_puzzle.get_combination()
+                     ) if self.solved_puzzle else -1
         f.write(f"{str(length)}\n")
         f.write(str(self.visited_states) + "\n")
         f.write(str(self.processed_states) + "\n")
