@@ -29,14 +29,5 @@ class PuzzleReader():
         if len(self.tab) != self.height:
             raise Exception(f'Wrong amount of lines in file {file_name}')
 
-    def getHeight(self) -> int:
-        return self.height
-
-    def getWitdth(self) -> int:
-        return self.width
-
-    def getArray(self):
-        return self.tab
-
     def getPuzzle(self) -> Puzzle:
         return Puzzle(self.width, self.height, self.tab, self.file_name)

@@ -44,7 +44,7 @@ class Puzzle:
     def __eq__(self, other: 'Puzzle') -> bool:
         return eq_2d_array(self.array, other.array)
 
-    def get_tocreate(self):
+    def get_torecreate(self):
         return self.to_recreate
 
     def get_combination(self):
