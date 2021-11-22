@@ -8,7 +8,7 @@ from time import perf_counter_ns as perf
 
 # manhattan to odległość od prawidłowego rozwiązania
 # uznaliśmy, że odległość w przypadku piętnastki to
-# średnia z wszystkich odległości każdej komórki od prawidłowego rozwiązania
+# suma z wszystkich odległości każdej komórki od prawidłowego rozwiązania
 def manhattan_distance(puzzle: Puzzle) -> int:
     distance = 0
     current_value = 0
@@ -35,7 +35,7 @@ def hamming_distance(puzzle: Puzzle) -> int:
         for j in range(puzzle.width):
             tmp = puzzle.array[i][j]
             current_value += 1
-            if i == puzzle.height - 1 and j == puzzle.width - 1 and tmp == 0:
+            if tmp == 0 and i == puzzle.height - 1 and j == puzzle.width - 1:
                 continue
             if tmp != current_value:
                 distance += 1

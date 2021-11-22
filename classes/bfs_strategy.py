@@ -99,7 +99,7 @@ class BFS():
                     to_move += move
 
             for move in to_move:
-                new_state: Puzzle = deepcopy(current_state)
+                new_state = current_state.deep_copy()
                 new_state.move(move)
                 queue.append(new_state)
 
