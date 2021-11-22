@@ -22,3 +22,15 @@ Pliki z rozwiązaniami znajdują się w folderze `./solutions`
 >- 5 linia (liczba rzeczywista z dokładnością do 3 miejsc po przecinku): czas trwania procesu obliczeniowego w milisekundach.
 
 Pliki z dodatkowymi informacjami znajdują się w folderze `./statistics`
+
+## Uruchamianie
+- `runprog.ps1` - to jest skrypt z WIKAMPa, należy tam ustawić poprawne wywołanie twojego programu
+- `runprog_mc.ps1` - skrypt który uruchamia `runprog.ps1` w łącznie 18 instanacjach na raz, dzięki temu przetwarzanie jest nieco szybsze
+- `runval.ps1` - waliduje solucje. Solucje muszą znajdować się w folderze `./solutions`. Należy także tam skonfigurować poprawne uruchamianie programu `puzzleval.jar` (z WIKAMPu)(linie 21-24 powinny wszystko wyjaśniać).
+
+## Generowanie wykresów
+0. Należy przejść w terminaly do folderu `./chart_generator`. Skrypty w nim się znajdujące wykorzystują pliki oraz tworzą nowe i robią to względem ścieżki na jakiej zostały wywołane. Nie przebywanie w odpowiednim folderze może doprowadzić do nieprawidłowego działania programu i/lub zaśmiecenia folderów
+1. Należy przerzucić folder `./statistics` do folderu `./chart_generator`
+2. Uruchamiamy dumper wyników poprzez uruchomienie pliku `./chart_generator/dumpy.py` (`py dumpy.py`). Skrypt ten wygeneruje nam plik `data.puzz` który zawiera słownik zawierający wszystkie wyniki. Zmniejsza to 10 krotnie zajmowaną ilość miejsca na dysku (5MB->500KB) oraz przyspiesza ładowanie danych, więc jeżeli chce się powtórzyć generowanie wykresów, nie trzeba się ponownie iterować po plikach.
+3. Uruchamiamy generator wykresów poprzez uruchomienie pliku `./chart_generator/main.py`
+4. Wykresy generowane są do folderu `./chart_generator/charts`

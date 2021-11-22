@@ -1,13 +1,24 @@
 from dumpy import load_data
 from matplotlib import pyplot as plt
+import os
 
 DATA = load_data()
 STATISTICS = ['length', 'visited', 'processed', 'depth', 'time']
+if not os.path.exists("charts"):
+    os.makedirs("charts")
+if not os.path.exists("charts/general"):
+    os.makedirs("charts/general")
+if not os.path.exists("charts/exact"):
+    os.makedirs("charts/exact")
+if not os.path.exists("charts/exist"):
+    os.makedirs("charts/exist")
 
 # ogólne statystyki per algorytm
 general_averages = {}
 # dokładne statystyki per algorytm (podział na metody (param))
 exact_averages = {}
+
+exist_averages = {}
 for difficulty in DATA:
     for number in DATA[difficulty]:
         for algorithm in DATA[difficulty][number]:
@@ -15,9 +26,16 @@ for difficulty in DATA:
                 general_averages[algorithm] = {}
             if algorithm not in exact_averages:
                 exact_averages[algorithm] = {}
+            if algorithm not in exist_averages:
+                exist_averages[algorithm] = {}
+                exist_averages[algorithm]['exist'] = 0
+                exist_averages[algorithm]['not_exist'] = 0
             for param in DATA[difficulty][number][algorithm]:
+                ### statystyki istnienia rozwiązań ###
                 if DATA[difficulty][number][algorithm][param]["length"] == -1:
+                    exist_averages[algorithm]["not_exist"] += 1
                     continue
+                exist_averages[algorithm]["exist"] += 1
                 ### ogólne statystyki ###
                 if "counter" not in general_averages[algorithm]:
                     general_averages[algorithm]["counter"] = 0
@@ -125,3 +143,16 @@ for algorithm in exact_averages:
         plt.bar(list(exact_averages[algorithm].keys()), [
             exact_averages[algorithm][param][stat] for param in exact_averages[algorithm]])
         plt.savefig(f"./charts/exact/{stat}_{algorithm}.png")
+
+# to jest trochę złe, można by poprawić, żeby lepiej zobrazować
+# to ile procentowo jest znalezionych rozwiązań, a ile nie.
+# (tak na prawdę ma to znaczenie, tylko dla DFS ślądzącego
+# odwiedzone stany, wszystko inne powinno mieć 100% znalezionych rozwiązań)
+for ex in ["exist", "not_exist"]:
+    plt.clf()
+    plt.title(f"statystyki istnienia rozwiązań - {ex}")
+    plt.ylabel(f"liczba rozwiązań {ex}")
+    plt.xlabel("algorytm")
+    plt.bar(list(general_averages.keys()), [
+        exist_averages[algorithm][ex] for algorithm in exist_averages])
+    plt.savefig(f"./charts/exist/{ex}_existance.png")

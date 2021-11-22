@@ -16,7 +16,7 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
         os.makedirs("statistics")
 
     puzzle_reader = PuzzleReader(f"./puzzles/{puzzle_file}")
-    puzzle = puzzle_reader.getPuzzle()
+    puzzle = puzzle_reader.get_puzzle()
 
     if strategy == "bfs":
         bfs = BFS(puzzle, param)
@@ -34,21 +34,6 @@ def main(strategy, param, puzzle_file, sol_file, stats_file):
         astar.generate_files(sol_file, stats_file)
 
 
-# reader = PuzzleReader('./puzzles/4x4_01_00001.txt')
-# puzzle = reader.getPuzzle()
-# astr_h = A_star(puzzle, "hamm")
-# astr_h.solve()
-# print(astr_h)
-# astr_m = A_star(puzzle, "manh")
-# astr_m.solve()
-# print(astr_m)
-# dfs = DFS(puzzle, "RDUL")
-# dfs.solve()
-# print(dfs)
-# bfs = BFS(puzzle, "RDUL")
-# bfs.solve()
-# print(bfs)
-
 if __name__ == "__main__":
     args = sys.argv
     strategy = args[1]
@@ -64,13 +49,9 @@ if __name__ == "__main__":
 
     if strategy == "astr" and (param in ['hamm', 'manh']):
         ok = True
-        # raise Exception(
-        #     f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
 
     if re.match(r'^(?=.*R)(?=.*U)(?=.*L)(?=.*D).*$', param) and len(param) == 4:
         ok = True
-        # raise Exception(
-        #     f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
 
     if ok:
         main(strategy, param, puzzle_file, sol_file, stats_file)
@@ -78,3 +59,18 @@ if __name__ == "__main__":
         raise Exception(
             f'Nieznana metoda: "{param}" dla strategii "{strategy}"')
     exit(0)
+
+# reader = PuzzleReader('./puzzles/4x4_01_00001.txt')
+# puzzle = reader.get_puzzle()
+# astr_h = A_star(puzzle, "hamm")
+# astr_h.solve()
+# print(astr_h)
+# astr_m = A_star(puzzle, "manh")
+# astr_m.solve()
+# print(astr_m)
+# dfs = DFS(puzzle, "RDUL")
+# dfs.solve()
+# print(dfs)
+# bfs = BFS(puzzle, "RDUL")
+# bfs.solve()
+# print(bfs)

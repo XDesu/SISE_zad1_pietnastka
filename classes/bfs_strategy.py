@@ -63,6 +63,7 @@ class BFS():
     def _solve(self):
 
         if self.puzzle.is_solved():
+            self.solved_puzzle = self.puzzle.deep_copy()
             return
 
         new_puzzle = self.puzzle.deep_copy()

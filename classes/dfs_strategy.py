@@ -72,10 +72,9 @@ class DFS():
         # jeżeli nie ma w odwiedzonych, to zapisuję i przetwarzam
         self.visited_states += 1
 
-        # spowalniacz. W przypadku analizy odwiedzonych stanów
-        # przetwarzanie staje się nawet 40 razy dłuższe
-        # zaletą jest to, że wychodzą lepsze wyniki (krótsze rozwiązania)
-        # ale dodatkową wadą jest to, że może nie znaleźć rozwiązania
+        # jeżeli sprawdzamy czy odwiedziliśmy dany stan, to średni czas wykonania
+        # jest mniejszy, a wyniki są bardziej przewidywalne (jest mniejsza zależność od wybranej kolejności przetwarzania)
+        # Niestety występuje też taka wada, że zwiększa się prawodopodobieństwo, że nie znajdziemy rozwiązania
         hash_key = str(hash(puzzle))
         if hash_key in self.visited:
             return
@@ -104,7 +103,7 @@ class DFS():
             new_state.move(move)
             self._solve(new_state, depth + 1)
 
-            # jeżeli rozwiązane, to kończ
+            # jeżeli rozwiązane, to kończ (tutaj tak na wszelki wypadek (jest już na początku funkcji))
             if self.solved_puzzle is not None:
                 return
 

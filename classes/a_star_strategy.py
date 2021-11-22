@@ -125,7 +125,6 @@ class A_star():
                 # utworzenie nowego stanu
                 new_puzzle = current_node.puzzle.deep_copy()
                 new_puzzle.move(move)
-                self.visited_states += 1
 
                 distance_from_start = current_node.dist_from_start + 1
                 aprox_distance = distance_from_start + \
@@ -145,7 +144,6 @@ class A_star():
                     new_node.dist_from_start = distance_from_start
                     new_node.aprox_dist_from_start = aprox_distance
                     open_list.append(new_node)
-                    self.processed_states += 1
 
 
 class Node():
